@@ -3,8 +3,8 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/jonathankirtland/APC_GO/pkg/encryption"
-	"github.com/jonathankirtland/APC_GO/pkg/stalling"
+	"github.com/jonathankirtland/APCGO/pkg/encryption"
+	"github.com/jonathankirtland/APCGO/pkg/stalling"
 	"io"
 )
 
