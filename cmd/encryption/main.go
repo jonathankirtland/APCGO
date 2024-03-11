@@ -1,10 +1,10 @@
 package main
 
 import (
-	"APCGO/pkg/encryption"
-	"APCGO/pkg/stalling"
 	"crypto/rand"
 	"fmt"
+	"github.com/jonathankirtland/APC_GO/pkg/encryption"
+	"github.com/jonathankirtland/APC_GO/pkg/stalling"
 	"io"
 )
 

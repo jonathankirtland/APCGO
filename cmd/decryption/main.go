@@ -1,11 +1,11 @@
 package main
 
 import (
-	"APCGO/pkg/encryption"
-	"APCGO/pkg/injection"
-	selfdelete "APCGO/pkg/self_delete"
-	"APCGO/pkg/stalling"
 	"fmt"
+	"github.com/jonathankirtland/APC_GO/pkg/encryption"
+	"github.com/jonathankirtland/APC_GO/pkg/injection"
+	selfdelete "github.com/jonathankirtland/APC_GO/pkg/self_delete"
+	"github.com/jonathankirtland/APC_GO/pkg/stalling"
 	"io"
 	"log"
 	"net/http"
