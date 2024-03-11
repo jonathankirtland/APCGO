@@ -1,4 +1,4 @@
-module github.com/jonathankirtland/APC_GO
+module github.com/jonathankirtland/APCGO
 
 go 1.21
 
