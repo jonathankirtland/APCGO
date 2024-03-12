@@ -6,6 +6,8 @@ import (
 	"fmt"
 )
 
+// DecryptAES decrypts a ciphertext using the given key and IV
+// The ciphertext must be a multiple of the block size
 func DecryptAES(key, iv, ciphertext []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {

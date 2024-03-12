@@ -4,7 +4,6 @@ import (
 	"crypto/rand"
 	"fmt"
 	"github.com/jonathankirtland/APCGO/pkg/encryption"
-	"github.com/jonathankirtland/APCGO/pkg/stalling"
 	"io"
 )
 
@@ -23,7 +22,7 @@ func main() {
 	var data []byte
 
 	// fill data with payload file
-	data, err := stalling.ReadFileWithoutComponents("payload.bin")
+	data, err := encryption.ReadFileWithoutComponents("payload.bin")
 
 	if err != nil {
 		fmt.Println("Error reading file:", err)
@@ -42,6 +41,6 @@ func main() {
 
 	print(result)
 
-	stalling.ReadPayloadToFile("payload/payload.bin", bytes)
+	encryption.ReadPayloadToFile("payload/payload.bin", bytes)
 
 }
