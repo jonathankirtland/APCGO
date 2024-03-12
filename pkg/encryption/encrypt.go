@@ -14,6 +14,7 @@ import (
 	"strings"
 )
 
+// Aes256 encrypts the data with the key and returns the encrypted data and IV.
 func Aes256(key, data []byte) ([]byte, []byte, error) {
 	length := len(key)
 	if !(length == 16 || length == 24 || length == 32) {
@@ -43,6 +44,7 @@ func pad(data []byte) []byte {
 	return append(data, padBytes...)
 }
 
+// EncryptPayload encrypts the payload with the key and returns the encrypted payload, IV, and key.
 func EncryptPayload(key string, payload []byte) ([]byte, []byte, []byte, bool) {
 	var value []byte
 	var err error
@@ -74,6 +76,7 @@ func EncryptPayload(key string, payload []byte) ([]byte, []byte, []byte, bool) {
 	return value, iv, []byte(key), true
 }
 
+// BytesToHexArray converts a byte slice to a string of hex values.
 func BytesToHexArray(shellCode []byte) string {
 	var stringsArray []string
 	for i, b := range shellCode {
@@ -88,6 +91,7 @@ func BytesToHexArray(shellCode []byte) string {
 	return result
 }
 
+// ReadPayloadToFile writes the payload to a file.
 func ReadPayloadToFile(filepath string, data []byte) (bool, error) {
 	fileName := filepath // Specify your file name
 
@@ -122,7 +126,7 @@ func ReadPayloadToFile(filepath string, data []byte) (bool, error) {
 
 }
 
-// ReadFileAndExtractComponents reads data from the file, extracts the key, IV, and payload.
+// ReadFileAndExtractComponents reads data from the file, extracts the key, IV, and payload. useful for getting the key and IV to decrypt.
 func ReadFileAndExtractComponents(filePath string) ([]byte, []byte, []byte, error) {
 	// Read the entire file into a byte slice.
 	data, err := ioutil.ReadFile(filePath)
@@ -143,6 +147,7 @@ func ReadFileAndExtractComponents(filePath string) ([]byte, []byte, []byte, erro
 	return key, iv, payload, nil
 }
 
+// ReadFileWithoutComponents reads data from the file without extracting the key, IV, and payload. useful for getting the payload to encrypt.
 func ReadFileWithoutComponents(filePath string) ([]byte, error) {
 	// Read the entire file into a byte slice.
 	data, err := ioutil.ReadFile(filePath)
