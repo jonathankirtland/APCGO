@@ -17,7 +17,7 @@ Key functions include:
 - `ReadFileWithoutComponents`: Reads data from the file without separating the key, IV, and payload.
 - `DecryptAES`: DecryptAES decrypts a ciphertext using the given key and IV
 
-## [`selfdelete`] (pkg/self_delete)
+## [`selfdelete`](pkg/self_delete)
 
 This package provides functions for self-deleting executables in Windows. It includes functions for opening a handle to the file to be deleted, renaming the file to a random stream name, marking the file to be deleted on close, and deleting the current running executable.
 
@@ -25,11 +25,11 @@ Key functions include:
 - `SelfDeleteExe`: Deletes the current running executable.
 
 
-## [`stalling`] (pkg/stalling)
+## [`stalling`](pkg/stalling)
 This package contains `CalculatePrimes` which is used to delay execution in sandbox environments
 
 
-## [`injection`] (pkg/injection)
+## [`injection`](pkg/injection)
 This package executes shellcode in a child process using the following steps:
  1. Create a child proccess in a suspended state with CreateProcessW
  2. Allocate RW memory in the child process with VirtualAllocEx
