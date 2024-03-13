@@ -5,7 +5,7 @@ This is a module which allows for APC Injection into a remote process written in
 
 This directory contains the following packages:
 
-## `encryption`
+## [encryption] pkg/encryption
 
 This package provides functions for AES-256 encryption and decryption. It includes functions for padding data, converting byte slices to strings of hex values, reading payloads to files, and reading files to extract components or without extracting components.
 
